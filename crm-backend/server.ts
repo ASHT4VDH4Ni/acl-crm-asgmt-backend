@@ -23,8 +23,6 @@ db.connect((err) => {
   else console.log("Connected to MySQL");
 });
 
-
-// Get all customers
 app.get("/customers", (req, res) => {
   db.query("SELECT * FROM customers", (err, results) => {
     if (err) return res.status(500).json(err);
@@ -32,7 +30,6 @@ app.get("/customers", (req, res) => {
   });
 });
 
-// Add a new customer
 app.post("/customers", (req, res) => {
   const { name, email, phone } = req.body;
   db.query(
@@ -47,7 +44,6 @@ app.post("/customers", (req, res) => {
   );
 });
 
-// Edit customer
 app.put("/customers/:id", (req, res) => {
   const { name, email, phone } = req.body;
   db.query(
@@ -60,7 +56,6 @@ app.put("/customers/:id", (req, res) => {
   );
 });
 
-// Delete customer
 app.delete("/customers/:id", (req, res) => {
   db.query("DELETE FROM customers WHERE id=?", [req.params.id], (err, result) => {
     if (err) return res.status(500).json(err);
@@ -68,7 +63,6 @@ app.delete("/customers/:id", (req, res) => {
   });
 });
 
-// Add interaction
 app.post("/interactions", (req, res) => {
   const { customer_id, interaction_date, type, notes } = req.body;
   db.query(
@@ -81,7 +75,6 @@ app.post("/interactions", (req, res) => {
   );
 });
 
-// Get interactions by customer ID
 app.get("/interactions/:customer_id", (req, res) => {
   db.query(
     "SELECT * FROM interactions WHERE customer_id = ?",
